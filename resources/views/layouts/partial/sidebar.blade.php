@@ -7,14 +7,14 @@
     </div>
     <div class="sidebar-wrapper">
         <ul class="nav">
-            <li class="">
-                <a href="#">
+            <li class="{{ Request::is('admin/dashboard*') ? 'active': '' }}">
+                <a href="{{ route('admin.dashboard') }}">
                     <i class="material-icons">dashboard</i>
                     <p>Dashboard</p>
                 </a>
             </li>
-            <li class="">
-                <a href="#">
+            <li class="{{ Request::is('admin/slider*') ? 'active': '' }}">
+                <a href="{{ route('slider.index') }}">
                     <i class="material-icons">slideshow</i>
                     <p>Sliders</p>
                 </a>
