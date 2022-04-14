@@ -34,7 +34,7 @@
                                             <td>{{ $key + 1 }}</td>
                                             <td>{{ $slider->title }}</td>
                                             <td>{{ $slider->sub_title }}</td>
-                                            <td>{{ $slider->image }}</td>
+                                            <td><img src="{{ url('uploads/slider/'.$slider->image) }}" style="height:60px; width: 70px;" ></td>
                                             <td>{{ $slider->created_at }}</td>
                                             <td>{{ $slider->updated_at }}</td>
                                             <td>
