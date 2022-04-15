@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Slider;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -21,8 +22,11 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+        public function index()
     {
-        return view('home');
+        $sliders = Slider::all();
+        // $categories = Category::all();
+        // $items = Item::all();
+        return view('welcome',compact('sliders')); //,'categories','items' are waiting to add by compact
     }
 }
