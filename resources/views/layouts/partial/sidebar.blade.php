@@ -27,8 +27,8 @@
                     <p>Categories</p>
                 </a>
             </li>
-            <li class="">
-                <a href="#">
+            <li class="{{Request::is('admin/item*') ? 'active' : '' }}">
+                <a href="{{ route('item.index') }}">
                     <i class="material-icons">library_books</i>
                     <p>Items</p>
                 </a>
