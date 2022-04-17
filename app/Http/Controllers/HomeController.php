@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
+use App\Item;
 use App\Slider;
 use Illuminate\Http\Request;
 
@@ -14,7 +16,6 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
     }
 
     /**
@@ -22,11 +23,11 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-        public function index()
+    public function index()
     {
         $sliders = Slider::all();
-        // $categories = Category::all();
-        // $items = Item::all();
-        return view('welcome',compact('sliders')); //,'categories','items' are waiting to add by compact
+        $categories = Category::all();
+        $items = Item::all();
+        return view('welcome', compact('sliders','categories','items')); //,'categories','items' are waiting to add by compact
     }
 }

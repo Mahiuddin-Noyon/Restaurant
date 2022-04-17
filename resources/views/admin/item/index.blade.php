@@ -37,7 +37,7 @@
                                             <td>{{ $item->description }}</td>
                                             <td>{{ $item->category->name }}</td>
                                             <td>{{ $item->price }}</td>
-                                            <td><img src="{{ url('uploads/item/'.$item->image) }}" style="height:60px; width: 70px;" ></td>
+                                            <td><img class="img-responsive img-thumbnail" src="{{ url('uploads/item/'.$item->image) }}" style="height:60px; width: 70px;" ></td>
                                             <td>{{ $item->created_at }}</td>
                                             <td>
                                                 <a href="{{ route('item.edit',$item->id) }}" class="btn btn-info btn-sm"><i class="material-icons">mode_edit</i></a>

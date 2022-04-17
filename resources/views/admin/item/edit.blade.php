@@ -67,7 +67,7 @@
                                         <input type="file" name="image">
                                     </div>
                                     <label>last image  </label>
-                                    <img src="{{ url('uploads/item/'.$item->image) }}" style="height:60px; width: 70px;" >
+                                    <img class="img-responsive img-thumbnail" src="{{ asset('uploads/item/'.$item->image) }}" style="height:60px; width: 70px;" >
                                    
                                 </div>
                                 <a href="{{ route('item.index') }}" class="btn btn-danger">Back</a>
