@@ -34,7 +34,7 @@
                                         <tr>
                                             <td>{{ $key + 1 }}</td>
                                             <td>{{ $item->name }}</td>
-                                            <td>{{ $item->description }}</td>
+                                            <td>{{ str_limit($item->description,'30') }}</td>
                                             <td>{{ $item->category->name }}</td>
                                             <td>{{ $item->price }}</td>
                                             <td><img class="img-responsive img-thumbnail" src="{{ url('uploads/item/'.$item->image) }}" style="height:60px; width: 70px;" ></td>

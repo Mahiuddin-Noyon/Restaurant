@@ -40,13 +40,11 @@ class CategoryController extends Controller
         $this->validate($request, [
             'name' => 'required'
         ]);
-
         $category = new Category();
-
         $category->name = $request->name;
-        $category->slug = str_slug('$request->name');
+        $category->slug = str_slug($request->name);
         $category->save();
-        return redirect(route('category.index'))->with('successMsg', 'Category Successfully Saved');
+        return redirect()->route('category.index')->with('successMsg', 'Category Successfully Saved');
     }
 
     /**
@@ -86,12 +84,10 @@ class CategoryController extends Controller
         ]);
 
         $category = Category::find($id);
-
         $category->name = $request->name;
-        $category->slug = str_slug('$request->name');
+        $category->slug = str_slug($request->name);
         $category->save();
-        return redirect(route('category.index'))->with('successMsg', 'Category Successfully Updated');
-
+        return redirect()->route('category.index')->with('successMsg', 'Category Successfully Updated');
     }
 
     /**
@@ -102,8 +98,7 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        $category = Category::findOrFail($id);
-        $category->delete();
-        return redirect(route('category.index'))->with('successMsg', 'Category Successfully Deleted');
+        Category::find($id)->delete();
+        return redirect()->back()->with('successMsg', 'Category Successfully Delete');
     }
 }

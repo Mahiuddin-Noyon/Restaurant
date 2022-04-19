@@ -17,12 +17,13 @@
                         </div>
                         <div class="card-content">
                             <p class="category">Category / Item</p>
-                            <h3 class="title">nntrial</h3>
+                            <h3 class="title">{{ $categoryCount }}/{{ $itemCount }}
+                            </h3>
                         </div>
                         <div class="card-footer">
                             <div class="stats">
                                 <i class="material-icons text-danger">info</i>
-                                <a href="#pablo">Total Categories and Items</a>
+                                <a href=" {{ route('category.index') }} ">Total Categories and Items</a>
                             </div>
                         </div>
                     </div>
@@ -34,11 +35,11 @@
                         </div>
                         <div class="card-content">
                             <p class="category">Slider Count</p>
-                            <h3 class="title">nntrial</h3>
+                            <h3 class="title">{{ $sliderCount }}</h3>
                         </div>
                         <div class="card-footer">
                             <div class="stats">
-                                <i class="material-icons">date_range</i> <a href="#">Get More Details...</a>
+                                <i class="material-icons">date_range</i> <a href="{{ route('slider.index') }}">Get More Details...</a>
                             </div>
                         </div>
                     </div>
@@ -46,15 +47,15 @@
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="card card-stats">
                         <div class="card-header" data-background-color="red">
-                            <i class="material-icons">info_outline</i>
+                            <i class="material-icons">table_restaurant</i>
                         </div>
                         <div class="card-content">
                             <p class="category">Reservation</p>
-                            <h3 class="title">nntrial</h3>
+                            <h3 class="title">{{ $reservations->count() }}</h3>
                         </div>
                         <div class="card-footer">
                             <div class="stats">
-                                <i class="material-icons">local_offer</i> Not Confirmed Reservation
+                                <i class="material-icons">local_offer</i> <a href="{{ route('reservation.index') }}">Show Reservation Table</a>
                             </div>
                         </div>
                     </div>
@@ -62,15 +63,15 @@
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="card card-stats">
                         <div class="card-header" data-background-color="blue">
-                            <i class="fa fa-twitter"></i>
+                        <i class="material-icons">email</i>
                         </div>
                         <div class="card-content">
                             <p class="category">Contact</p>
-                            <h3 class="title">nntrial</h3>
+                            <h3 class="title">{{ $contactCount }}</h3>
                         </div>
                         <div class="card-footer">
                             <div class="stats">
-                                <i class="material-icons">update</i> Just Updated
+                                <i class="material-icons">update</i> <a href="{{route('contact.index')}}">All Contacts</a>
                             </div>
                         </div>
                     </div>
@@ -89,36 +90,57 @@
                                 <th>ID</th>
                                 <th>Name</th>
                                 <th>Phone</th>
+                                <th>Email</th>
+                                <th>T & D</th>
+                                <th>Message</th>
+                                <th>Submitted</th>
                                 <th>Status</th>
                                 <th>Action</th>
                                 </thead>
                                 <tbody>
-                               
+                                @foreach($reservations as $key=>$reservation)
                                     <tr>
-                                        <td>SL</td>
-                                        <td>name</td>
-                                        <td>phone</td>
+                                        <td>{{ $key + 1 }}</td>
+                                        <td>{{ $reservation->name }}</td>
+                                        <td>{{ $reservation->phone }}</td>
+                                        <td>{{ $reservation->email }}</td>
+                                        <td>{{ $reservation->date_and_time }}</td>
+                                        <td>{{ $reservation->message }}</td>
+                                        <td>{{ $reservation->created_at }}</td>
                                         <th>
-                                                <span class="label label-info">Confirmation</span>
-                                                <!-- <span class="label label-danger">not Confirmed yet</span> -->
+                                            @if($reservation->status == true)
+                                                <span class="label label-info">Confirmed</span>
+                                            @else
+                                                <span class="label label-danger">not Confirmed yet</span>
+                                            @endif
+
                                         </th>
+                                        
                                         <td>
-                                                <form id="status-form-id" action="#" style="display: none;" method="POST">
+                                            @if($reservation->status == false)
+                                                <form id="status-form-{{ $reservation->id }}" action="{{ route('reservation.status',$reservation->id) }}" style="display: none;" method="POST">
                                                     @csrf
                                                 </form>
                                                 <button type="button" class="btn btn-info btn-sm" onclick="if(confirm('Are you verify this request by phone?')){
                                                         event.preventDefault();
-                                                        document.getElementById('status-form-id').submit();
+                                                        document.getElementById('status-form-{{ $reservation->id }}').submit();
                                                         }else {
                                                         event.preventDefault();
                                                         }"><i class="material-icons">done</i></button>
-                                            <form id="delete-form-id" action="#" style="display: none;" method="POST">
+                                            @endif
+                                            <form id="delete-form-{{ $reservation->id }}" action="{{ route('reservation.destroy',$reservation->id) }}" style="display: none;" method="POST">
                                                 @csrf
                                                 @method('DELETE')
                                             </form>
-                                            <button type="button" class="btn btn-danger btn-sm"><i class="material-icons">delete</i></button>
+                                            <button type="button" class="btn btn-danger btn-sm" onclick="if(confirm('Are you sure? You want to delete this?')){
+                                                    event.preventDefault();
+                                                    document.getElementById('delete-form-{{ $reservation->id }}').submit();
+                                                    }else {
+                                                    event.preventDefault();
+                                                    }"><i class="material-icons">delete</i></button>
                                         </td>
                                     </tr>
+                                @endforeach
                                 </tbody>
                             </table>
                         </div>

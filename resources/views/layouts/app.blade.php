@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -20,22 +21,25 @@
     <!--     Fonts and icons     -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
     @stack('css')
 </head>
+
 <body>
     <div id="app">
 
         <div class="wrapper">
-                @if( Request::is('admin*') )
-                    @include('layouts.partial.sidebar')
-                @endif
+            @if( Request::is('admin*') )
+            @include('layouts.partial.sidebar')
+            @endif
             <div class="main-panel">
                 @if(Request::is('admin*'))
-                    @include('layouts.partial.topbar')
+                @include('layouts.partial.topbar')
                 @endif
-                    @yield('content')
+                @yield('content')
                 @if(Request::is('admin*'))
-                    @include('layouts.partial.footer')
+                @include('layouts.partial.footer')
                 @endif
             </div>
         </div>
@@ -60,6 +64,15 @@
     <script src="{{ asset('backend/js/material-dashboard.js') }}"></script>
     <!-- Material Dashboard DEMO methods, don't include it in your project! -->
     <script src="{{ asset('backend/js/demo.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    @if ($errors->any())
+    @foreach ($errors->all() as $error)
+    <script>
+        toastr.error('{{ $error }}');
+    </script>
+    @endforeach
+    @endif
+
     <script type="text/javascript">
         $(document).ready(function() {
 
@@ -68,6 +81,9 @@
 
         });
     </script>
+
+    {!! Toastr::message() !!}
     @stack('scripts')
 </body>
+
 </html>
