@@ -7,7 +7,7 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class Reservationmail extends Notification
+class Reservationmail extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -41,8 +41,8 @@ class Reservationmail extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('Thank you for your concentration')
-                    ->line('Your Reservation has been confirmed');
+                    ->line('Thank you for your Reservation')
+                    ->line('Reservation has been confirmed');
     }
 
     /**
